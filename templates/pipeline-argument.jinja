@@ -1,0 +1,25 @@
+Identify arguments for the predicate <PRED>{{ predicate.text }}</PRED> with <ARG></ARG> tags on the original sentence.
+{# whitespace #}
+{# whitespace #}
+{%- if examples -%}
+Below are a few examples:
+{# whitespace #}
+{%- for text, response in examples -%}
+Example: {{ text }}
+Response: {{ response }}
+{# whitespace #}
+{# whitespace #}
+{%- endfor -%}
+{%- else -%}
+Format the response inline with the original sentence, and only respond with the labeled sentence, like so:
+Example: The dog <PRED>barked</PRED>.
+Response: <ARG>The dog</ARG> <PRED>barked</PRED>.
+{# whitespace #}
+{# whitespace #}
+{%- endif -%}
+
+Text for labeling:
+
+{{ text_with_targets }}
+
+Response:

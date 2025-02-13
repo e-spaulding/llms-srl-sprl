@@ -1,0 +1,11 @@
+api_key: your_api_key_here
+log_level_override: INFO
+metrics:
+- f1
+model_ver: gpt-4o
+path_to_data: corpus/srl+sprl/1.test.core-roles-only.pkl
+out_dir: experiments
+property_strings:
+- all
+template_path: templates
+check_for_existing_parses: False

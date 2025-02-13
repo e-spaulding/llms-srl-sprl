@@ -1,0 +1,16 @@
+Identify the PropBank roleset ID for the predicate <PRED>{{ predicate.text }}</PRED> with respect to its usage in the original sentence.
+
+Below are the possible roleset IDs for <PRED>{{ predicate.text }}</PRED>:
+{# whitespace #}
+{{ roleset_options }}
+{# whitespace #}
+
+Respond with only the roleset ID, like so:
+Example: The dog <PRED>barked</PRED>.
+Response: bark.01
+
+Text for labeling:
+
+{{ text_with_targets }}
+
+Response:

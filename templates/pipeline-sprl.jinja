@@ -1,0 +1,68 @@
+Identify SPRL properties for the predicate <PRED>{{ predicate.text }}</PRED> and arg <ARG>{{ relation.arg.text }}</ARG>.
+
+Give judgements for each SPRL property below:
+{# whitespace #}
+{%- for label, definition in label_definitions.items() -%}
+{{ label }}: {{ definition }}.
+{# whitespace #}
+{%- endfor -%}
+{# whitespace #}
+{# whitespace #}
+{%- if examples -%}
+Below are a few examples:
+{# whitespace #}
+{%- for example_text, example_relation in examples -%}
+Example: {{ example_text }}
+Response: {# whitespace #}
+{
+    {# whitespace #}
+    "{{example_relation.arg.text}}": {
+        {# whitespace #}
+        {%- if srl -%}
+        {# whitespace #}
+        "role": {{example_relation.srl_label}}{{ "," if sprl }}
+        {# whitespace #}
+        {%- endif -%}
+        {%- if sprl -%}
+        {%- for prop, val in example_relation.sprl_label.items() -%}
+        "{{ prop }}": {{val}}{{ "," if not loop.last }}
+        {# whitespace #}
+        {%- endfor -%}
+        {%- endif -%}
+    {# whitespace #}    
+    }
+    {# whitespace #}
+}
+{# whitespace #}
+{%- endfor -%}
+{%- else -%}
+{# whitespace #}
+JSON Format:
+{
+    {# whitespace #}
+    "{{relation.arg.text}}": {
+        {# whitespace #}
+        {%- if srl -%}
+        {# whitespace #}
+        "role": "role for arg <ARG>{{ relation.arg.text }}</ARG> in predicate <PRED>{{ predicate.roleset_id }}</PRED>"{{ "," if sprl }}
+        {# whitespace #}
+        {%- endif -%}
+        {%- if sprl -%}
+        {%- for label, definition in label_definitions.items() -%}
+        "{{ label }}": true/false{{ "," if not loop.last }}
+        {# whitespace #}
+        {%- endfor -%}
+        {%- endif -%}
+    {# whitespace #}    
+    }
+}
+{# whitespace #}
+{%- endif -%}
+{# whitespace #}
+Text for labeling:
+
+{{ text_with_targets }}
+
+Output only the JSON.
+
+Response:

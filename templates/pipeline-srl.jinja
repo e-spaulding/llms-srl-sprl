@@ -1,0 +1,30 @@
+Identify the Semantic Role for the predicate <PRED>{{ predicate.text }}</PRED> and arg <ARG>{{ relation.arg.text }}</ARG>.
+
+Below are the Semantic Roles for <PRED>{{ predicate.text }}</PRED>:
+{# whitespace #}
+{%- for role, definition in role_definitions.items() -%}
+{{ role }}: {{ definition }}.
+{# whitespace #}
+{%- endfor -%}
+{# whitespace #}
+
+{%- if examples -%}
+Respond with only the role label, and nothing else. Below are a few examples:
+{# whitespace #}
+{%- for example_text_with_targets, example_relation in examples -%}
+Example: {{ example_text_with_targets }}
+Response: {{ example_relation.srl_label }}
+{# whitespace #}
+{%- endfor -%}
+{%- else -%}
+Respond with only the role label, and nothing else, like so:
+Example: <ARG>The dog</ARG> <PRED>barked</PRED>.
+Response: ARG0
+{%- endif -%}
+{# whitespace #}
+
+Text for labeling:
+
+{{ text_with_targets }}
+
+Response:

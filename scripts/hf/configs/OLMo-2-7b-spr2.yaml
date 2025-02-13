@@ -1,0 +1,3 @@
+batch_size: 1
+model_name: allenai/OLMo-2-1124-7B
+path_to_prompts: llms-srl-sprl/hf/prompts/sprl2.1.test.pkl

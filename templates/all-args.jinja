@@ -1,0 +1,106 @@
+Identify the Semantic Roles for the arg(s) {# whitespace #}{%-for relation in relations -%}
+<ARG>{{ relation.arg.text }}</ARG>{{ "," if not loop.last }} {# whitespace #}
+{%- endfor -%} with respect to the predicate <PRED>{{ predicate.text }}</PRED> in the following sentence: 
+
+{{ text_with_targets }}
+{# whitespace #}
+{# whitespace #}
+{%- if include_sprl -%}
+1. Analyze each Argument for Semantic Proto-Role Properties. Below are the properties:
+{# whitespace #}
+{%- for label, definition in label_definitions.items() -%}
+{{ label }}: {{ definition }}.
+{# whitespace #}
+{%- endfor -%}
+{# whitespace #}
+
+2. Label each Argument for its Semantic Role. 
+{%- endif -%}
+Below are the Semantic Roles for <PRED>{{ predicate.text }}</PRED>:
+{# whitespace #}
+{%- for role, definition in role_definitions.items() -%}
+{{ role }}: {{ definition }}.
+{# whitespace #}
+{%- endfor -%}
+{# whitespace #}
+
+{%- if examples -%}
+{# whitespace #}
+{# whitespace #}
+Below are a few similar examples:
+{# whitespace #}
+{# whitespace #}
+{%- for example in examples -%}
+Example: {{ example.text }}
+Output: {# whitespace #}
+{
+    "text": "{{example.text}}",
+    "predicates": {
+    {# whitespace #}
+{%- for pred, relations in example.relations -%}
+{# whitespace #}        "{{pred.text}}": {
+            "start_char": {{pred.start_char}},
+            "arguments": {
+                {# whitespace #}
+                {%-for relation in relations -%}
+                "{{relation.arg.text}}": {
+                    "start_char": {{relation.arg.start_char}},
+                    {# whitespace #}
+                    {%- for prop, val in relation.label.items() -%}
+                    {%- if prop != 'role_label' -%}
+                    "{{ prop }}": {{val}},
+                    {# whitespace #}
+                    {%- endif -%}
+                    {%- endfor -%}
+                    "role": {{ relation.label.role_label }}
+                {# whitespace #}    
+                }{{ "," if not loop.last }}
+                {%- endfor -%}
+                {# whitespace #}
+            }
+        }{{ "," if not loop.last }}
+{# whitespace #}
+{%- endfor -%}
+{# whitespace #}    }
+}
+{# whitespace #}
+{# whitespace #}
+{%- endfor -%}
+{%- endif -%}
+{# whitespace #}
+{# whitespace #}
+JSON Format:
+{
+    "text": "{{ original_text }}",
+    "predicates": {
+        "{{predicate.text}}": {
+            "start_char": {{predicate.start_char}},
+            "arguments": {
+                {# whitespace #}
+                {%-for relation in relations -%}
+                "{{relation.arg.text}}": {
+                    "start_char": {{relation.arg.start_char}},
+                    {# whitespace #}
+                    {%- if include_sprl -%}
+                    {%- for prop, definition in label_definitions.items() -%}
+                    "{{ prop }}": true/false,
+                    {# whitespace #}
+                    {%- endfor -%}
+                    {%- endif -%}
+                    "role": "Identified Semantic Role Label for <ARG>{{relation.arg.text}}</ARG>"
+                {# whitespace #}    
+                }{{ "," if not loop.last }}
+                {%- endfor -%}
+                {# whitespace #}
+            }
+        }
+{# whitespace #}
+{# whitespace #}    }
+}
+{# whitespace #}
+
+Original text for labeling:
+
+{{ original_text }}
+
+Output only the JSON.

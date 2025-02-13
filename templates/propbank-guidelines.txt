@@ -1,0 +1,94 @@
+PropBank Annotation Goals
+PropBank is a corpus in which the arguments of each predicate are annotated with their semantic
+roles in relation to the predicate (Palmer et al., 2005). Currently, all the PropBank annotations
+are done on top of the phrase structure annotation of the Penn TreeBank (Marcus et al., 1993).
+In addition to semantic role annotation, PropBank annotation requires the choice of a sense
+id (also known as a frameset or roleset id) for each predicate. Thus, for each verb in every
+tree (representing the phrase structure of the corresponding sentence), we create a PropBank
+instance that consists of the sense id of the predicate (e.g. run.02) and its arguments labeled
+with semantic roles.
+An important goal is to provide consistent argument labels across different syntactic realizations
+of the same verb, as in. . .
+[John]ARG0 broke [the window]ARG1
+[The window]ARG1 broke
+As this example shows, the arguments of the verbs are labeled as numbered arguments: ARG0,
+ARG1, ARG2, and so on. The argument structure of each predicate is outlined in the PropBank
+frame file for that predicate. The frame file gives both semantic and syntactic information about
+each sense of the predicate lemmas that have been encountered thus far in PropBank annotation.
+The frame file also denotes the correspondences between numbered arguments and semantic
+roles, as this is somewhat unique for each predicate. Numbered arguments reflect either the
+arguments that are required for the valency of a predicate (e.g., agent, patient, benefactive),
+or if not required, those that occur with high-frequency in actual usage. Although numbered
+arguments correspond to slightly different semantic roles given the usage of each predicate, in
+general numbered arguments correspond to the following semantic roles:
+ARG0 agent 
+ARG1 patient 
+ARG2 instrument, benefactive, attribute
+ARG3 starting point, benefactive, attribute
+ARG4 ending point
+ARGM modifier
+
+Choosing ARG0 versus ARG1:
+In most cases, choosing an argument label is straightforward, given the verb specific definition
+of this label in the frame files. However, in some cases, it may be somewhat ambiguous whether
+an argument should be annotated as ARG0 or ARG1; thus, the annotator must decide between
+these labels based on the following explanations of what generally characterizes ARG0 and
+ARG1.
+The ARG0 label is assigned to arguments which are understood as agents, causers, or experiencers. The ARG1 label is usually assigned to the patient argument, i.e., the argument which
+undergoes the change of state or is being affected by the action.
+ARG0 arguments (which correspond to external arguments in GB theory) are the subjects
+of transitive verbs and a class of intransitive verbs called unergatives. Semantically, external
+arguments have what Dowty (1991) called Proto-Agent properties, such as:
+1. Volitional involvement in the event or state
+2. Causing an event or change of state in another participant
+3. Movement relative to the position of another participant (Dowty, 1991)
+Internal arguments (labeled as ARG1) are the objects of transitive verbs and the subjects of
+intransitive verbs called unaccusatives. These arguments have Proto-Patient properties, which
+means that these arguments:
+1. Undergo change of state
+2. Are causally affected by another participant
+3. Are stationary relative to movement of another participant (Dowty, 1991)
+Whereas for many verbs, the choice between ARG0 or ARG1 does not present any difficulties,
+there is a class of intransitive verbs (known as verbs of variable behavior), where the argument
+can be tagged as either ARG0 or ARG1.
+[A bullet]ARG1 landed at his feet
+[He]ARG0 landed
+Arguments which are interpreted as agents should always be marked as ARG0, independent of
+whether they are also the ones which undergo the action. In general, if an argument satisfies
+two roles, the highest ranked argument label should be selected, where
+ARG0 > ARG1 > ARG2 − 5 > ARGM
+Given this rule, agents are ranked higher than patients. If an argument is both an agent and a
+patient, then ARG0 label should be selected. An example of this is the verb meet:
+John and Mary met at a cocktail party.
+ARG0: John and Mary
+REL: met
+ARGM-LOC: at a cocktail party
+Another good example of this is the verb move, which can have both an ARG0 (i.e. the mover)
+and an ARG1 (i.e. the moved), though in some cases ARG0 and ARG1 are the same:
+Digital ’s move into mainframes
+ARG0: Digital ’s
+REL: move
+ARG2: into mainframes
+Not all ARG0s are agentive, however. There are many inanimate as well as clausal arguments
+which are being marked as ARG0s. These arguments are usually the ones which cause an action
+or a change of state.
+A notion which might be useful for selecting ARG0 arguments is the notion of internally caused
+as opposed to externally caused eventualities, as defined in Levin and Rapapport (1995). In
+internally-caused eventualities, some property inherent to the argument of the verb is responsible
+for bringing about the eventuality. For agentive verbs such as play, speak, or work, the inherent
+property responsible for the eventuality is the will or volition of the agent who performs the
+activity. However, an internally caused eventuality need not be agentive. For example, the
+verbs blush and tremble are not agentive, but they, nevertheless, can be considered to denote
+internally caused eventualities, because these eventualities arise from internal properties of the
+arguments, typically an emotional reaction. In contrast to internally caused verbs, verbs which
+are externally caused inherently imply the existence of an external cause with an immediate
+control over bringing about the eventuality denoted by the verb: an agent, and instrument,
+a natural force, or a circumstance. Thus something breaks because of the existence of some
+external cause; something does not break because of its own properties (Levin and Hovav,
+1995). The difference between internal and external causation is important for distinguishing
+ARG0s and ARG1s: the arguments which are responsible for bringing out the eventuality are
+ARG0s, whereas those which undergo an externally caused event are ARG1s.
+To sum up, ARG0 arguments are the arguments which cause the action denoted by the verb,
+either agentively or not, as well as those which are traditionally classified as experiencers, e.g., the
+arguments of stative verbs such as love, hate, fear. ARG1 arguments, on the other hand, are those
+that change due to external causation, as well as other types of patient-like arguments.

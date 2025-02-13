@@ -1,0 +1,3 @@
+batch_size: 1
+model_name: meta-llama/Llama-3.2-3B-Instruct
+path_to_prompts: llms-srl-sprl/hf/prompts/sprl2.1.test.pkl
